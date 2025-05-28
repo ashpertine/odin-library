@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel='stylesheet' href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="nav">
+            <span class="nav-heading">My Library</span>
+            <dialog>
+                <button autofocus type="button">Close</button>
+                <form method="post" action="#">
+                    <label for="title-input">Book Title: </label>
+                    <input type=text id="title-input" name="title">
+                    <label for="author-input">Book Author: </label>
+                    <input type=text id="author-input" name="author">
+                    <label for="no-pages-input">Number of Pages: </label>
+                    <input type=text id="no-pages-input" name="number-pages">
+                    <div>
+                        <label for="has-read-input">Have you read it?</label>
+                        <input type="checkbox" id="has-read-input" name="has-read">
+                    </div>
+                    <button type="submit">Add Book!</button>
+                </form>
+            </dialog>
+            <button type="button" class="add-book">Add Book</button>
+        </div>
+        <div class="card-container"></div>
+    </div>
+    <footer>
+        <span>Horribly Written By Ashton Chew, 2025</span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

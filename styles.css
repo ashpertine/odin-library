@@ -1,0 +1,176 @@
+@font-face {
+    font-family: LibreBaskerville;
+    src: url(fonts/LibreBaskerville-Regular.woff2);
+}
+
+@font-face {
+    font-family: LibreBaskerville;
+    src: url(fonts/LibreBaskerville-Italic.woff2);
+    font-style: italic, oblique;
+}
+
+@font-face {
+    font-family: LibreBaskerville;
+    src: url(fonts/LibreBaskerville-Regular.woff2);
+    font-weight: bold;
+}
+
+
+:root {
+    --darkenedburlywood: rgb(144, 119, 88);
+    --lightenedburlywood: rgb(240, 210, 172);
+    --font-stack: LibreBaskerville, Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+}
+
+html {
+    font-family: LibreBaskerville, Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+    font-size: 20px;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-image: linear-gradient(burlywood, var(--darkenedburlywood));
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 12px 48px;
+    background-color: var(--darkenedburlywood);
+    color: white;
+    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.188);
+}
+
+.nav-heading {
+    flex: 1;
+    font-size: clamp(0.9rem, 1.3vw, 1.5rem);
+    margin-right: 20px;
+}
+
+.add-book {
+    position: relative;
+    font-family: var(--font-stack);
+    font-weight: bold;
+    background-color: burlywood;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.192);
+    padding: 12px 24px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    font-size: clamp(0.9rem, 1.3vw, 1.5rem);
+    cursor: pointer;
+}
+
+.add-book {
+    background-position: center;
+    transition: background 0.8s;
+}
+.add-book:hover {
+    background: var(--lightenedburlywood) radial-gradient(circle, transparent 1%, burlywood 1%) center/15000%;
+}
+.add-book:active {
+    background-color: burlywood;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+::backdrop {
+    background-color: black; 
+    opacity: 0.5;
+}
+
+dialog {
+    color: white;
+    background-color: var(--darkenedburlywood);
+    border: none;
+    border-radius: 12px;
+}
+
+dialog button[type='button'] {
+    background-color: rgb(224, 103, 103);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: var(--font-stack); 
+    cursor: pointer;
+    font-size: clamp(0.6rem, 1.05vw, 0.8rem);
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.card-container {
+    align-self: center;
+    width: clamp(300px, 60vw, 1000px);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    color: white;
+    position: relative;
+    border-radius: 4px;
+    padding: 24px 48px;
+    background-image: linear-gradient(0deg,rgba(0, 0, 0, 0.214) 0%, rgba(0, 0, 0, 0.077) 47%, rgba(255, 255, 255, 0.315) 100%), url('images/leather-texture.png');
+    outline: 1px solid rgba(255, 255, 255, 0.301);
+    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.188);
+    background-size: cover;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.card-header > h4 {
+    margin: 0;
+}
+
+.card-header > img {
+    width: auto;
+    height: 50px;
+}
+
+
+.accent {
+    position: absolute;
+    background-color: white;
+    width: 98%;
+    height: 48px;
+    box-shadow: inset 0px 10px 11px 0px rgba(0, 0, 0, 0.2);
+    bottom: 2%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    right: 0;
+
+}
+
+.delete-book {
+    margin-bottom: 40px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    background-color: burlywood;
+    border-radius: 12px;
+
+}
