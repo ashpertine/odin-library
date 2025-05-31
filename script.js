@@ -14,7 +14,7 @@ function addBookToLibrary(book, library) {
     library.push(book);
 }
 
-function createNewCard(card_container, book, library_arr) {
+function createNewCard(card_container, book) {
     const card = document.createElement('div');
     card.classList.add('card');
     card.setAttribute('id', book.uuid);
@@ -40,7 +40,7 @@ function createNewCard(card_container, book, library_arr) {
     
     const noPages = document.createElement('p');
     noPages.classList.add('no-pages');
-    noPages.innerText = book.noPages;
+    noPages.innerText = `Number of Pages: ${book.noPages}`;
     
     const hasRead = document.createElement('p');
     hasRead.classList.add('has-read');
@@ -50,11 +50,13 @@ function createNewCard(card_container, book, library_arr) {
     delBookButton.classList.add('delete-book');
     delBookButton.setAttribute('data-target-id', book.uuid);
     delBookButton.innerText = 'Delete';
-    delBookButton.addEventListener('click', () => {
-        const targetId = delBookButton.getAttribute('data-target-id');
-        deleteCard(targetId);
-        library = deleteBookFromLibrary(library_arr, targetId);
-    });
+
+    const hasReadButton = document.createElement('button');
+    if(!book.hasRead) {
+        hasReadButton.classList.add('read-book');
+        hasReadButton.setAttribute('data-target-id', book.uuid);
+        hasReadButton.innerText = 'I have read this!';
+    }
     
     //fill the card with contents
     
@@ -66,6 +68,10 @@ function createNewCard(card_container, book, library_arr) {
     card.append(noPages);
     card.append(hasRead);
     card.append(delBookButton);
+
+    if(hasReadButton.classList.contains('read-book')) {
+        card.append(hasReadButton);
+    }
     
     // Add the card
     card_container.append(card);
@@ -101,19 +107,31 @@ function clearInputs() {
     });
 }
 
-function deleteCard(target_id) {
-    const targetBook = document.querySelector(`#${target_id}`);
-    targetBook.remove();
-}
+
+
 
 function deleteBookFromLibrary(library_arr, target_id) {
-    const filteredlibraryArr = library_arr.filter((element) => {
+    const targetBook = document.querySelector(`#${target_id}`);
+    targetBook.remove();
+    library_arr = library_arr.filter((element) => {
         return element.uuid != target_id;
     });
-
-    return filteredlibraryArr;
+    return library_arr;
 }
 
+function updateBookToRead(library_arr, target_id) { 
+    const targetBook = document.querySelector(`#${target_id}`);
+    let readBookStatus = targetBook.querySelector('.has-read');
+    readBookStatus.innerText = 'Has Read';
+    library_arr.forEach((book) => {
+        if(book.uuid == targetBook.id) book.hasRead = true;
+    });
+
+    //remove the button
+    const readBookButton = targetBook.querySelector('.read-book');
+    readBookButton.remove();
+    return library_arr;
+}
 
 let library = []
 const cardContainer = document.querySelector(".card-container");
@@ -121,6 +139,20 @@ const dialog = document.querySelector("dialog");
 const showButton = document.querySelector(".add-book");
 const closeButton = document.querySelector("dialog button");
 const newBookButton = document.querySelector("button[type=submit]");
+
+cardContainer.addEventListener('click', (event) => {
+    if(event.target.classList.contains('delete-book')) {
+        //delete the book
+        let targetId = event.target.getAttribute('data-target-id');
+        library = deleteBookFromLibrary(library, targetId);
+    }
+
+    if(event.target.classList.contains('read-book')) {
+        //set the book to read
+        let targetId = event.target.getAttribute('data-target-id');
+        library = updateBookToRead(library, targetId);
+    }
+});
 
 // "Show the dialog" button opens the dialog modally
 showButton.addEventListener("click", () => {
@@ -146,6 +178,20 @@ newBookButton.addEventListener('click', (event) => {
     console.log(library);
     dialog.close();
 });
+
+// Example data
+const exampleBooks = [
+    new Book("The Great Gatsby", "F. Scott Fitzgerald", 180, true),
+    new Book("1984", "George Orwell", 328, false),
+    new Book("To Kill a Mockingbird", "Harper Lee", 281, true)
+];
+
+// Add each example book to the library and create its card
+exampleBooks.forEach(book => {
+    addBookToLibrary(book, library);
+    createNewCard(cardContainer, book, library);
+});
+
 
 
 
